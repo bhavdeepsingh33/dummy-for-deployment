@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+h2{
+    text-align:center;
+}
+
+div {
+      background-color: light-blue;
+      width: 500px;
+      height: 100px;
+      border: 5px solid green;
+      padding: 10px;
+      margin: 10px;
+      float:left;
+      text-align:center;
+      position:relative;
+}
+
+#sensor_data{
+
+}
+
+#column1, #column2, #column3, #column4, #column5, #column6, #column7, #column8{
+        position: relative;
+        top: 5px;
+        color:black;
+        font-size:20px;
+        text-align:center; 
+        padding:0px;
+        margin: 0px;
+        padding: 10px;
+        display:inline-block;
+}
+
+#col1, #col2, #col3, #col4, #col5, #col6, #col7, #col8{
+        color:blue;
+        font-size:30px;
+        text-align:center;
+        padding:0px;
+        margin : 0px;
+        
+}
+
+#month{
+    background-color: light-blue;
+    width: 200px;
+    height: 100px;
+    border: 5px solid green;
+    padding: 10px;
+    margin: 10px;
+    text-align:center;
+    float:center;
+
+}
+
+#column9{
+        position: relative;
+        top: 5px;
+        color:black;
+        font-size:20px;
+        text-align:center; 
+        padding:0px;
+        margin: 0px;
+        padding: 10px;
+        display:inline-block;
+}
+
+#col9{
+        color:blue;
+        font-size:30px;
+        text-align:center;
+        padding:0px;
+        margin : 0px;
+
+}
+
+
+</style>
+</head>
+<body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type='text/javascript'>
+    
+    var intervalID = setInterval(update_values, 500)
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    function update_values(){
+        $.getJSON($SCRIPT_ROOT + '/_stuff',
+        
+                    function(data){
+                        if(data.result=='data not found'){
+                            clearTimeout(intervalID);
+                            $('#data_end').text("Data is not available!!!");
+                        }
+                        else{
+                            $('#col1').text(data.col1);
+                            $('#col2').text(data.col2);
+                            $('#col3').text(data.col3);
+                            $('#col4').text(data.col4);
+                            $('#col5').text(data.col5);
+                            $('#col6').text(data.col6);
+                            $('#col7').text(data.col7);
+                            $('#col8').text(data.col8);
+                            $('#col9').text(data.col9);
+                            console.log(data)
+                        }
+        });
+    // alert(intervalID);
+    };
+
+
+</script>
+
+<h2>One Year Component Degradation</h2>
+<p id='data_end' style='font-size:20px;text-align:center;color:red;'></p>
+<br>
+
+<div id='month'>
+    <p id='column9'>Month</p>
+    <p id='col9'></p>
+</div>
+
+<div>
+    <p id='column1'>pCut::Motor_Torque</p>
+    <p id='col1'></p>
+</div>
+<div>
+    <p id='column2'>pCut::CTRL_Position_controller::Lag_error</p>
+    <p id='col2'></p>
+</div>
+<div>
+    <p id='column3'>pCut::CTRL_Position_controller::Actual_position</p>    
+    <p id='col3'></p>
+</div>
+<div>
+    <p id='column4'>pCut::CTRL_Position_controller::Actual_speed</p> 
+    <p id='col4'></p>
+</div>
+<div>
+    <p id='column5'>pSvolFilm::CTRL_Position_controller::Actual_position</p>
+    <p id='col5'></p>
+</div>
+<div>
+    <p id='column6'>pSvolFilm::CTRL_Position_controller::Actual_speed</p>
+    <p id='col6'></p>
+</div>
+<div>
+    <p id='column7'>pSvolFilm::CTRL_Position_controller::Lag_error</p>
+    <p id='col7'></p>
+</div>
+<div>
+    <p id='column8'>pSpintor::VAX_speed</p>
+    <p id='col8'></p>
+</div>
+
+</body>
+</html>

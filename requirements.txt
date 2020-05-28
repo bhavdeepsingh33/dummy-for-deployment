@@ -1,0 +1,13 @@
+flask
+pickle 
+os 
+pandas
+numpy
+json
+dash
+dash_core_components
+dash_html_components
+plotly
+collections
+sklearn
+matplotlib
